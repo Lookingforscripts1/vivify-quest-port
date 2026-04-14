@@ -5,7 +5,6 @@ on:
     branches: [ main ]
   workflow_dispatch: 
 
-# This gives the runner permission to download dependencies and upload artifacts
 permissions:
   contents: write
   actions: write
@@ -17,14 +16,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup qpm-rust
-      uses: Fernthedev/qpm-rust-action@main
+    - name: Setup QPM
+      # Using the updated action name and v1 tag
+      uses: Fernthedev/qpm-action@v1
       with:
-        # REQUIRED: This provides the auth token needed by the toolchain
         workflow_token: ${{ secrets.GITHUB_TOKEN }}
-        version: 'v0.1.1' 
-        restore: true
-        qpm_qmod: true
+        # Downloads the latest stable QPM release automatically
+        restore: true 
+        cache: true
+        # This tells the action to resolve the NDK from your qpm.json
+        resolve_ndk: true 
 
     - name: Build Mod
       run: |
