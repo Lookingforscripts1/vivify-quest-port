@@ -1,50 +1,11 @@
 {
-  "$schema": "https://raw.githubusercontent.com/nicoco007/bsml-schema/main/qmod.schema.json",
-  "schema":  "1.1.0",
-  "name":    "Vivify",
-  "id":      "vivify",
-  "author":  "Aeroluna (original), Quest port contributors",
+  "id": "vivify",
+  "name": "Vivify",
+  "author": "Aeroluna",
   "version": "0.1.0",
-  "packageId":      "com.beatgames.beatsaber",
+  "description": "Quest port of Vivify v1.0.7",
+  "gameVersion": "1.40.8_7379",
+  "packageId": "com.beatgames.beatsaber",
   "packageVersion": "1.40.8_7379",
-  "description": "Bring your map to life. Quest port of Vivify v1.0.7.",
-  "coverImage": "cover.png",
-  "isLibrary": false,
-  "dependencies": [
-    {
-      "id": "custom-types",
-      "version": "^0.18.3",
-      "downloadIfMissing": "https://github.com/QuestPackageManager/Il2CppQuestTypePatching/releases/download/v0.18.3/CustomTypes.qmod"
-    },
-    {
-      "id": "paper2_scotland2",
-      "version": "^4.6.4",
-      "downloadIfMissing": "https://github.com/Fernthedev/paperlog/releases/download/v4.6.4/paper2_scotland2.qmod"
-    },
-    {
-      "id": "bsml",
-      "version": "^0.4.55",
-      "downloadIfMissing": "https://github.com/bsq-ports/Quest-BSML/releases/download/v0.4.55/BSML.qmod"
-    },
-    {
-      "id": "lapiz",
-      "version": "^0.2.23",
-      "downloadIfMissing": "https://github.com/raineaeternal/Lapiz/releases/download/v0.2.23/Lapiz.qmod"
-    },
-    {
-      "id": "metacore",
-      "version": "^1.6.2",
-      "downloadIfMissing": "https://github.com/Metalit/MetaCore/releases/download/v1.6.2/MetaCore.qmod"
-    },
-    {
-      "id": "songcore",
-      "version": "^1.1.26",
-      "downloadIfMissing": "https://github.com/raineaeternal/Quest-SongCore/releases/download/v1.1.26/SongCore.qmod"
-    }
-  ],
-  "modFiles": [
-    "libvivify.so"
-  ],
-  "libraryFiles": [],
-  "fileCopies": []
+  "modloader": "scotland2"
 }
