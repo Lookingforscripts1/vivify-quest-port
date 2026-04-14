@@ -3,9 +3,12 @@ name: Build Quest Mod
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch: # Allows manual trigger from your iPhone
+  workflow_dispatch: 
+
+# This gives the runner permission to upload the finished mod
+permissions:
+  contents: write
+  actions: write
 
 jobs:
   build:
@@ -17,25 +20,21 @@ jobs:
     - name: Setup qpm-rust
       uses: Fernthedev/qpm-rust-action@main
       with:
-        # Version of qpm-rust to use
-        qpm_version: 'v0.1.1'
-
-    - name: QPM Restore
-      run: qpm restore
-
-    - name: List files (Debug)
-      run: ls -R
+        # FIXED: Removed 'qpm_version' and used the correct input names
+        version: 'v0.1.1' 
+        restore: true
+        qpm_qmod: true
 
     - name: Build Mod
-      run: qpm sbuild
-
-    - name: Create QMOD
-      run: qpm qmod build
+      run: |
+        qpm sbuild
+        qpm qmod build
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Vivify-Quest-Build
+        # This path ensures it finds the .so and .qmod regardless of folder
         path: |
-          ./build/*.so
+          ./**/*.so
           ./*.qmod
