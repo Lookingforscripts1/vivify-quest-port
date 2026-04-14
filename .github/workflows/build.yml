@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   workflow_dispatch: 
 
-# This gives the runner permission to upload the finished mod
+# This gives the runner permission to download dependencies and upload artifacts
 permissions:
   contents: write
   actions: write
@@ -20,7 +20,8 @@ jobs:
     - name: Setup qpm-rust
       uses: Fernthedev/qpm-rust-action@main
       with:
-        # FIXED: Removed 'qpm_version' and used the correct input names
+        # REQUIRED: This provides the auth token needed by the toolchain
+        workflow_token: ${{ secrets.GITHUB_TOKEN }}
         version: 'v0.1.1' 
         restore: true
         qpm_qmod: true
@@ -34,7 +35,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Vivify-Quest-Build
-        # This path ensures it finds the .so and .qmod regardless of folder
         path: |
           ./**/*.so
           ./*.qmod
