@@ -1,0 +1,82 @@
+{
+  "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
+  "info": {
+    "name": "Vivify",
+    "id": "vivify",
+    "version": "0.1.0",
+    "url": "https://github.com/bsq-ports/Vivify-Quest",
+    "description": "Bring your map to life. Quest port of Vivify v1.0.7.",
+    "additionalData": {
+      "modId": "vivify",
+      "modName": "Vivify",
+      "author": "Aeroluna (original), Quest port contributors",
+      "category": "Core",
+      "description": "Bring your map to life. Quest port of Vivify v1.0.7 for Beat Saber 1.40.8_7379.",
+      "isLibrary": false,
+      "soName": "libvivify.so",
+      "overrideSoName": "libvivify.so",
+      "modFiles": [],
+      "fileCopies": [],
+      "branchName": "main",
+      "headersOnly": false
+    }
+  },
+  "workspace": {
+    "qmodOutput": "Vivify.qmod",
+    "scripts": {
+      "build": "cd build && ninja",
+      "cmake": "cmake .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo"
+    }
+  },
+  "dependencies": [
+    {
+      "id": "custom-types",
+      "versionRange": ">=0.18.3",
+      "additionalData": {}
+    },
+    {
+      "id": "paper2_scotland2",
+      "versionRange": ">=4.6.4",
+      "additionalData": {}
+    },
+    {
+      "id": "beatsaber-hook",
+      "versionRange": ">=5.0.0",
+      "additionalData": {}
+    },
+    {
+      "id": "config-utils",
+      "versionRange": ">=2.0.3",
+      "additionalData": {}
+    },
+    {
+      "id": "bsml",
+      "versionRange": ">=0.4.55",
+      "additionalData": {}
+    },
+    {
+      "id": "lapiz",
+      "versionRange": ">=0.2.23",
+      "additionalData": {}
+    },
+    {
+      "id": "metacore",
+      "versionRange": ">=1.6.2",
+      "additionalData": {}
+    },
+    {
+      "id": "songcore",
+      "versionRange": ">=1.1.26",
+      "additionalData": {
+        "headersOnly": true
+      }
+    },
+    {
+      "id": "bs-cordl",
+      "versionRange": ">=1.40.8",
+      "additionalData": {
+        "headersOnly": true
+      }
+    }
+  ]
+}
