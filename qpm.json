@@ -28,6 +28,10 @@
       "cmake": "cmake .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo"
     }
   },
+
+    }
+  ]
+}
   "dependencies": [
     {
       "id": "custom-types",
@@ -77,6 +81,3 @@
       "additionalData": {
         "headersOnly": true
       }
-    }
-  ]
-}
