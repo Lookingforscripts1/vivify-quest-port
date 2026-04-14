@@ -1,58 +1,53 @@
-#include "Vivify/Controllers/PostProcessingController.hpp"
-#include "UnityEngine/RenderTexture.hpp"
-#include "UnityEngine/Graphics.hpp"
-#include "UnityEngine/Shader.hpp"
-#include "UnityEngine/RenderTextureDescriptor.hpp"
-#include "UnityEngine/SystemInfo.hpp"
+#pragma once
 
-DEFINE_TYPE(Vivify::Controllers, PostProcessingController)
+#include "main.hpp"
+#include "custom-types/shared/macros.hpp"
+
+#include "UnityEngine/MonoBehaviour.hpp"
+#include "UnityEngine/Camera.hpp"
+#include "UnityEngine/RenderTexture.hpp"
+#include "UnityEngine/Material.hpp"
+#include "UnityEngine/Shader.hpp"
+
+#include <vector>
+#include <string>
 
 namespace Vivify::Controllers {
 
-static int _StereoActiveEyeID = 0;
+    DECLARE_CLASS_CODEGEN(Vivify::Controllers, PostProcessingController, UnityEngine::MonoBehaviour,
+        
+        // --- Unity lifecycle ---
+        DECLARE_INSTANCE_METHOD(void, Awake);
+        DECLARE_INSTANCE_METHOD(void, OnDestroy);
 
-void PostProcessingController::Awake() {
-    _camera = GetComponent<UnityEngine::Camera*>();
-    _StereoActiveEyeID = UnityEngine::Shader::PropertyToID("_StereoActiveEye");
-}
+        // This is the core of the Quest rendering fix
+        DECLARE_INSTANCE_METHOD(void, OnRenderImage,
+            UnityEngine::RenderTexture* src,
+            UnityEngine::RenderTexture* dst);
 
-void PostProcessingController::OnRenderImage(UnityEngine::RenderTexture* src, UnityEngine::RenderTexture* dst) {
-    if (_shaderEntries.empty() || !_camera) {
-        UnityEngine::Graphics::Blit(src, dst);
-        return;
-    }
+    public:
+        struct ShaderEntry {
+            int priority;
+            std::string name;
+            UnityEngine::Material* material;
+        };
 
-    if (_dirty) RebuildSortedList();
+        void AddShader(std::string name, UnityEngine::Material* mat, int priority);
+        void RemoveShader(std::string_view name);
+        void ClearShaders();
+        void SetDepthTextureEnabled(bool enabled);
 
-    // QUEST FIX: Handle Single Pass Instanced
-    // We ping-pong between temporary textures that match the source descriptor (which is a Texture2DArray on Quest)
-    auto desc = src->get_descriptor();
-    auto rt1 = UnityEngine::RenderTexture::GetTemporary(desc);
-    auto rt2 = UnityEngine::RenderTexture::GetTemporary(desc);
+    private:
+        UnityEngine::Camera* _camera = nullptr;
+        std::vector<ShaderEntry> _shaderEntries;
+        bool _dirty = false;
 
-    UnityEngine::Graphics::Blit(src, rt1);
+        // Quest SPI helper
+        static inline int _StereoActiveEyeID = 0;
 
-    for (const auto& entry : _shaderEntries) {
-        // We set the eye index to 0, then 1, and blit. 
-        // Most Quest-optimized shaders will handle the array automatically if we use the correct Blit signature.
-        UnityEngine::Shader::SetGlobalInt(_StereoActiveEyeID, 0); 
-        UnityEngine::Graphics::Blit(rt1, rt2, entry.material);
-        std::swap(rt1, rt2);
-    }
+        void RebuildSortedList();
+        // Updated signature to handle the SPI ping-pong logic
+        void BlitChain(UnityEngine::RenderTexture* src, UnityEngine::RenderTexture* dst);
+    )
 
-    UnityEngine::Graphics::Blit(rt1, dst);
-
-    UnityEngine::RenderTexture::ReleaseTemporary(rt1);
-    UnityEngine::RenderTexture::ReleaseTemporary(rt2);
-}
-
-void PostProcessingController::RebuildSortedList() {
-    std::stable_sort(_shaderEntries.begin(), _shaderEntries.end(),
-        [](const ShaderEntry& a, const ShaderEntry& b) {
-            return a.priority < b.priority;
-        });
-    _dirty = false;
-}
-
-// ... AddShader and RemoveShader implementation stays the same as your upload ...
-}
+} // namespace Vivify::Controllers
