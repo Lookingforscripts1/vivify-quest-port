@@ -20,19 +20,24 @@
       "branchName": "main",
       "headersOnly": false
     }
-  },
-  "workspace": {
-    "qmodOutput": "Vivify.qmod",
-    "scripts": {
-      "build": "cd build && ninja",
-      "cmake": "cmake .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo"
-    }
+
   },
   "dependencies": [
     {
       "id": "custom-types",
       "versionRange": ">=0.18.3"
     },
+    "workspace": {
+    "qmodOutput": "Vivify.qmod",
+    "scripts": {
+      "build": [
+        "cd build && ninja"
+      ],
+      "cmake": [
+        "cmake .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo"
+      ]
+    }
+  },
     {
       "id": "paper2_scotland2",
       "versionRange": ">=4.6.4"
