@@ -20,14 +20,8 @@
       "branchName": "main",
       "headersOnly": false
     }
-
   },
-  "dependencies": [
-    {
-      "id": "custom-types",
-      "versionRange": ">=0.18.3"
-    },
-    "workspace": {
+  "workspace": {
     "qmodOutput": "Vivify.qmod",
     "scripts": {
       "build": [
@@ -38,6 +32,11 @@
       ]
     }
   },
+  "dependencies": [
+    {
+      "id": "custom-types",
+      "versionRange": ">=0.18.3"
+    },
     {
       "id": "paper2_scotland2",
       "versionRange": ">=4.6.4"
