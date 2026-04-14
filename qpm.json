@@ -28,56 +28,30 @@
       "cmake": "cmake .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo"
     }
   },
-
-    }
-  ]
-}
   "dependencies": [
     {
       "id": "custom-types",
-      "versionRange": ">=0.18.3",
-      "additionalData": {}
+      "versionRange": ">=0.18.3"
     },
     {
       "id": "paper2_scotland2",
-      "versionRange": ">=4.6.4",
-      "additionalData": {}
+      "versionRange": ">=4.6.4"
     },
     {
       "id": "beatsaber-hook",
-      "versionRange": ">=5.0.0",
-      "additionalData": {}
+      "versionRange": ">=5.0.0"
     },
     {
       "id": "config-utils",
-      "versionRange": ">=2.0.3",
-      "additionalData": {}
+      "versionRange": ">=2.0.3"
     },
     {
       "id": "bsml",
-      "versionRange": ">=0.4.55",
-      "additionalData": {}
-    },
-    {
-      "id": "lapiz",
-      "versionRange": ">=0.2.23",
-      "additionalData": {}
-    },
-    {
-      "id": "metacore",
-      "versionRange": ">=1.6.2",
-      "additionalData": {}
+      "versionRange": ">=0.4.55"
     },
     {
       "id": "songcore",
-      "versionRange": ">=1.1.26",
-      "additionalData": {
-        "headersOnly": true
-      }
-    },
-    {
-      "id": "bs-cordl",
-      "versionRange": ">=1.40.8",
-      "additionalData": {
-        "headersOnly": true
-      }
+      "versionRange": ">=1.1.26"
+    }
+  ]
+}
