@@ -1,7 +1,7 @@
 {
   "ndkPath": "latest",
   "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
-  ...{
+ {
   "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.schema.json",
   "info": {
     "name": "Vivify",
